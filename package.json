@@ -1,0 +1,32 @@
+{
+  "name": "astro-fontaine",
+  "version": "1.0.0",
+  "description": "Automatically generate fallback font faces for your Astro site",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eli Gundry",
+  "license": "MIT",
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "@types/css-tree": "^2.3.1",
+    "astro": "^2.1.8",
+    "prettier": "^2.7.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "css-tree": "^2.3.1",
+    "fontaine": "^0.3.1"
+  }
+}
