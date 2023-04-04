@@ -19,7 +19,6 @@ export interface CustomFont {
   family: string
   fallbacks?: string[]
   src?: string
-  css?: string
 }
 
 interface FontFromStylesheet extends CustomFont {
