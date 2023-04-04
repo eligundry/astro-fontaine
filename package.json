@@ -1,6 +1,6 @@
 {
   "name": "astro-fontaine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatically generate fallback font faces for your Astro site",
   "main": "dist/index.js",
   "type": "module",

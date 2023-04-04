@@ -148,9 +148,13 @@ const integration = (options: AstroFontaineOptions): AstroIntegration => {
               parsedURL.host,
               ...parsedURL.pathname.split('/')
             )
+            const fileExists = await fs
+              .access(pathToSaveFont, fs.constants.R_OK)
+              .then(() => true)
+              .catch(() => false)
 
             // If we already have the font, skip downloading it.
-            if ((await fs.stat(pathToSaveFont)).isFile()) {
+            if (fileExists) {
               return true
             } else {
               await fs.mkdir(path.dirname(pathToSaveFont), { recursive: true })
