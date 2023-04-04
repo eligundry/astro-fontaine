@@ -26,8 +26,9 @@ interface FontFromStylesheet extends CustomFont {
   src: string
 }
 
-// A lot of this is stolen from this file
+// A lot of this is stolen from these files
 // https://github.com/nuxt-modules/fontaine/blob/main/src/module.ts
+// https://github.com/dc7290/astro-fonts-next/blob/main/src/index.ts
 
 export interface AstroFontaineOptions {
   fonts: CustomFont[]
@@ -38,7 +39,6 @@ export interface AstroFontaineOptions {
 
 const CHROME_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
-// const IE_UA = 'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko'
 
 const integration = (options: AstroFontaineOptions): AstroIntegration => {
   const {
@@ -154,7 +154,7 @@ const integration = (options: AstroFontaineOptions): AstroIntegration => {
             if ((await fs.stat(pathToSaveFont)).isFile()) {
               return true
             } else {
-              fs.mkdir(path.dirname(pathToSaveFont), { recursive: true })
+              await fs.mkdir(path.dirname(pathToSaveFont), { recursive: true })
             }
 
             const font = await fetch(fontFace.src).then((resp) => {
