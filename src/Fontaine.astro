@@ -15,11 +15,22 @@ import { pathToFileURL } from 'node:url'
 
 interface Props {
   /**
-   * URL to stylesheet with `@font-face` declarations
+   * URL to stylesheet with `@font-face` declarations.
    */
   href: string
+  /**
+   * The font family's name.
+   */
   family: string
+  /**
+   * List of fallback fonts to use while the remote font loads.
+   */
   fallbacks: string[]
+  /**
+   * Directory to save the fonts to. Must be in Astro's `public` directory.
+   *
+   * @default "./public/astro-fontaine"
+   */
   fontDirectory?: string
 }
 
@@ -89,7 +100,7 @@ const fontFaceDeclarations: Array<FontFromStylesheet | CustomFont> = csstree
       fallbacks,
     }
   })
-  .filter((font): font is FontFromStylesheet => Boolean(font))
+  .filter(Boolean)
 
 // Download all of the fonts to the app's public directory.
 // Fonts load the fastest when severed from the site's domain, as the
@@ -132,6 +143,7 @@ await Promise.all(
     })
 
     const stream = createWriteStream(pathToSaveFont)
+    // @ts-ignore
     await finished(Readable.fromWeb(font).pipe(stream))
   })
 )
