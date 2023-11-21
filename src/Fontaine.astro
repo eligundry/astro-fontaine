@@ -182,7 +182,7 @@ csstree.walk(ast, (node) => {
   }
 })
 
-const generatedCSS = csstree.generate(ast)
+const generatedCSS = csstree.generate(ast) + '\n' + fallbackFontsCSS
 ---
 
 <style data-fontaine-href={href} set:html={generatedCSS}></style>
