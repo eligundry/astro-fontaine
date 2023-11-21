@@ -14,51 +14,41 @@ It does the following:
 
 ## Usage
 
-Add this code to your `astro.config.js`:
+In a `<head>` tag, add and configure the `<Fontaine />` component:
 
-```javascript
-import { defineConfig } from 'astro/config'
-import fontaine from 'astro-fontaine'
+```astro
+---
+import { Fontaine } from 'astro-fontaine'
+---
 
-export default defineConfig({
-  integrations: [
-    fontaine({
-      // If you are using Google Fonts, Typekit or some other font hosting service, you can provide the URL to the
-      // stylesheet here and the plugin will download and inline it into your webpages automatically.
-      remoteFontFaceStylesheetURLs: [
-        'https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Code&family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=fallback',
-      ],
-      // Array of font families that will be used to generate the fallback fonts
-      fonts: [
-        {
-          family: 'Arvo',
-          // You can provide fallbacks per fronts such that the fallback font is of the same style when it flashes.
-          fallbacks: ['Georgia', 'Cambria'],
-        },
-        // If you omit fallbacks, the defaultFallbacks property will be used.
-        { family: 'Lato' },
-        {
-          family: 'Fira Code',
-          fallbacks: [
-            'SFMono-Regular',
-            'Menlo',
-            'Monaco',
-            'Consolas',
-            'Liberation Mono',
-            'Courier New',
-            'monospace',
-          ],
-        },
-      ],
-      defaultFallbacks: [
-        'ui-sans-serif',
-        'Helvetica Neue',
-        'Arial',
-        'sans-serif',
-      ],
-    }),
-  ]
-})
+<!DOCTYPE html>
+<html>
+  <head>
+    <Fontaine
+      href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=fallback"
+      family="Arvo"
+      fallbacks={['Georgia', 'Cambria']}
+    />
+    <Fontaine
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=fallback"
+      family="Lato"
+      fallbacks={['Helvetica Neue', 'Arial', 'sans-serif']}
+    />
+    <Fontaine
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&display=fallback"
+      family="Fira Code"
+      fallbacks={[
+        'SFMono-Regular',
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        'Liberation Mono',
+        'Courier New',
+        'monospace',
+      ]}
+    />
+  </head>
+</html>
 ```
 
 ## Inspiration
