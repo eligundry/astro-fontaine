@@ -1,7 +1,16 @@
 {
   "name": "astro-fontaine",
   "version": "2.0.0",
-  "description": "Automatically generate fallback font faces for your Astro site",
+  "description": "Astro component that loads your fonts as efficiently as possible while also generating fallback font styles with Fontaine",
+  "repository": "github:eligundry/astro-fontaine",
+  "homepage": "https://github.com/eligundry/astro-fontaine",
+  "keywords": [
+    "astro-component",
+    "withastro",
+    "fonts",
+    "google-fonts",
+    "fontaine"
+  ],
   "files": [
     "src/index.ts",
     "src/Fontaine.astro"
