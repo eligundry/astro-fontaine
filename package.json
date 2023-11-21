@@ -1,8 +1,12 @@
 {
   "name": "astro-fontaine",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Automatically generate fallback font faces for your Astro site",
-  "main": "dist/index.js",
+  "files": [
+    "src/index.ts",
+    "src/Fontaine.astro"
+  ],
+  "exports": "src/index.ts",
   "type": "module",
   "scripts": {
     "build": "tsc",
