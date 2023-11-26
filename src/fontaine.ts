@@ -40,10 +40,7 @@ async function getCachedCSS(
 ): Promise<string | undefined> {
   const key = hashHref(href)
   const cachedCssPath = path.join(fontDirectory, key)
-  const fileExists = await fs
-    .access(cachedCssPath, fs.constants.R_OK)
-    .then(() => true)
-    .catch(() => false)
+  const fileExists = await checkIfFileExists(cachedCssPath)
 
   if (fileExists) {
     return fs.readFile(cachedCssPath, 'utf-8')
@@ -56,6 +53,15 @@ async function cacheCSS(href: string, fontDirectory: string, css: string) {
   const key = hashHref(href)
   const cachedCssPath = path.join(fontDirectory, key)
   await fs.writeFile(cachedCssPath, css)
+}
+
+async function checkIfFileExists(file: string) {
+  try {
+    await fs.access(file, fs.constants.R_OK)
+    return true
+  } catch (e) {
+    return false
+  }
 }
 
 export async function generateCSS({
@@ -136,10 +142,7 @@ export async function generateCSS({
         parsedURL.host,
         ...parsedURL.pathname.split('/')
       )
-      const fileExists = await fs
-        .access(pathToSaveFont, fs.constants.R_OK)
-        .then(() => true)
-        .catch(() => false)
+      const fileExists = await checkIfFileExists(pathToSaveFont)
 
       // If we already have the font, skip downloading it.
       if (fileExists) {

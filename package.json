@@ -1,6 +1,8 @@
 {
   "name": "astro-fontaine",
   "version": "2.0.0",
+  "author": "Eli Gundry",
+  "license": "MIT",
   "description": "Astro component that loads your fonts as efficiently as possible while also generating fallback font styles with Fontaine",
   "repository": "github:eligundry/astro-fontaine",
   "homepage": "https://github.com/eligundry/astro-fontaine",
@@ -20,10 +22,9 @@
   "scripts": {
     "build": "tsc",
     "prettier": "prettier -w src",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest"
   },
-  "author": "Eli Gundry",
-  "license": "MIT",
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
@@ -36,7 +37,9 @@
     "astro": "^2.1.8",
     "prettier": "^2.7.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "vitest": "^0.34.6",
+    "vitest-fetch-mock": "^0.2.2"
   },
   "dependencies": {
     "css-tree": "^2.3.1",
