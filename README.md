@@ -5,12 +5,13 @@ using the wonderful [fontaine](https://github.com/danielroe/fontaine) library.
 
 It does the following:
 
-1. Downloads provided font stylesheets.
+1. Downloads the stylesheet.
 2. Parses and extracts all `@font-face` definitions.
 3. Downloads the fonts to your site's `public` directory and rewrites the stylesheet to use the fonts hosted on your
    site's domain.
 4. Generates fallback fonts.
-5. Inlines the rewritten font stylesheets and fallback `@font-face` declarations into all pages in your site's build.
+5. Inlines the rewritten font stylesheet and fallback `@font-face` declarations
+   into a `<style>` element.
 
 ## Usage
 

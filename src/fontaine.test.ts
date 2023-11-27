@@ -31,7 +31,6 @@ describe('generateCSS', () => {
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }`,
       }
     })
@@ -43,10 +42,19 @@ describe('generateCSS', () => {
         fallbacks: ['Helvetica', 'Arial'],
       })
     )
-      .toBe(`@font-face {font-family: 'Inter';font-style: normal;font-weight: 400;src: url(/astro-fontaine/fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2) format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+      .toBe(`@font-face{font-family:"Inter";font-style:normal;font-weight:400;src:url(/astro-fontaine/fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2)format("woff2")}
 @font-face {
   font-family: "Inter fallback";
   src: local("Helvetica");
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1477%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter fallback";
+  src: local("Arial");
   size-adjust: 100%;
   ascent-override: 96.875%;
   descent-override: 24.1477%;

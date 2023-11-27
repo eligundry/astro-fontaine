@@ -192,13 +192,15 @@ export async function generateCSS({
         }
 
         if (!metrics) {
-          console.warn('Could not finde metrics for font', fontFace)
-          return ''
+          console.warn('Could not find metrics for font', fontFace)
+          return ['']
         }
 
-        return generateFontFace(metrics, {
-          name: generateFallbackName(fontFace.family),
-          fallbacks: fontFace.fallbacks,
+        return fontFace.fallbacks.flatMap((fallback) => {
+          return generateFontFace(metrics, {
+            name: generateFallbackName(fontFace.family),
+            font: fallback,
+          })
         })
       })
   )
@@ -215,7 +217,8 @@ export async function generateCSS({
     }
   })
 
-  const generatedCSS = csstree.generate(ast) + '\n' + fallbackFontsCSS
+  const generatedCSS =
+    csstree.generate(ast) + '\n' + fallbackFontsCSS.flat().join('\n')
 
   await cacheCSS(href, fontDirectory, generatedCSS)
 
