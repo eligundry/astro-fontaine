@@ -7,9 +7,6 @@ import {
 import * as csstree from 'css-tree'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { Readable } from 'node:stream'
-import { createWriteStream } from 'node:fs'
-import { finished } from 'node:stream/promises'
 import { pathToFileURL } from 'node:url'
 import crypto from 'node:crypto'
 
@@ -56,12 +53,13 @@ async function cacheCSS(href: string, fontDirectory: string, css: string) {
 }
 
 async function checkIfFileExists(file: string) {
-  try {
-    await fs.access(file, fs.constants.R_OK)
-    return true
-  } catch (e) {
+  const stats = await fs.stat(file)
+
+  if (!stats) {
     return false
   }
+
+  return stats.isFile() || stats.isDirectory()
 }
 
 export async function generateCSS({
@@ -75,14 +73,23 @@ export async function generateCSS({
     return cachedCSS
   }
 
-  // Download the stylesheet
-  const stylesheet = await fetch(href).then((resp) => {
-    if (!resp.ok) {
-      throw new Error(`Could not fetch the following stylesheet URL: ${href}`)
-    }
+  // Clean up the stylesheet URL
+  const parsedStylesheetHref = new URL(href)
 
-    return resp.text()
-  })
+  if (parsedStylesheetHref.searchParams.has('display')) {
+    parsedStylesheetHref.searchParams.delete('display')
+  }
+
+  // Download the stylesheet
+  const stylesheet = await fetch(parsedStylesheetHref.toString()).then(
+    (resp) => {
+      if (!resp.ok) {
+        throw new Error(`Could not fetch the following stylesheet URL: ${href}`)
+      }
+
+      return resp.text()
+    }
+  )
 
   // Extract all of the font URLs
   const ast = csstree.parse(stylesheet)
@@ -151,7 +158,7 @@ export async function generateCSS({
 
       await fs.mkdir(path.dirname(pathToSaveFont), { recursive: true })
 
-      const font = await fetch(fontFace.src).then((resp) => {
+      const fontResp = await fetch(fontFace.src).then((resp) => {
         if (!resp.ok) {
           throw new Error(`Could not download font ${fontFace.src}`)
         }
@@ -160,12 +167,11 @@ export async function generateCSS({
           throw new Error(`Downloaded font is empty ${fontFace.src}`)
         }
 
-        return resp.body as ReadableStream<Uint8Array>
+        return resp
       })
 
-      const stream = createWriteStream(pathToSaveFont)
-      // @ts-ignore
-      await finished(Readable.fromWeb(font).pipe(stream))
+      const buffer = Buffer.from(await fontResp.arrayBuffer())
+      return fs.writeFile(pathToSaveFont, buffer)
     })
   )
 
@@ -217,8 +223,11 @@ export async function generateCSS({
     }
   })
 
-  const generatedCSS =
-    csstree.generate(ast) + '\n' + fallbackFontsCSS.flat().join('\n')
+  const generatedCSS = (
+    csstree.generate(ast) +
+    '\n' +
+    fallbackFontsCSS.flat().join('\n')
+  ).trim()
 
   await cacheCSS(href, fontDirectory, generatedCSS)
 

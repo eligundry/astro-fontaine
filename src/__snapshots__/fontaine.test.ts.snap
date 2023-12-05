@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generateCSS > should remove \`display=fallback\` from Google Fonts URLs 1`] = `
+"@font-face{font-family:\\"Inter\\";font-style:normal;font-weight:400;src:url(/astro-fontaine/fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2)format(\\"woff2\\")}
+@font-face {
+  font-family: \\"Inter fallback\\";
+  src: local(\\"Helvetica\\");
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1477%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: \\"Inter fallback\\";
+  src: local(\\"Arial\\");
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1477%;
+  line-gap-override: 0%;
+}"
+`;
+
+exports[`generateCSS > should successfully parse and transform a @font-face stylesheet 1`] = `
+"@font-face{font-family:\\"Inter\\";font-style:normal;font-weight:400;src:url(/astro-fontaine/fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2)format(\\"woff2\\")}
+@font-face {
+  font-family: \\"Inter fallback\\";
+  src: local(\\"Helvetica\\");
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1477%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: \\"Inter fallback\\";
+  src: local(\\"Arial\\");
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1477%;
+  line-gap-override: 0%;
+}"
+`;
